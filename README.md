@@ -70,6 +70,5 @@ CozyHomes is a real estate mobile application designed to simplify and enhance t
 ## Licensing
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
----
-
-Feel free to customize the README further to better fit your project specifics and personal preferences. Let me know if you need further assistance!
+![CozyHomes UI](./screenshot_cozyhomes.jpg)
+![CozyHomes Architecture](./cozyhomes_arch.jpg)
