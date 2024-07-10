@@ -3,8 +3,8 @@
 ## Introduction
 CozyHomes is a real estate mobile application designed to simplify and enhance the property buying and selling experience in Ethiopia. The app provides a seamless platform for users to browse, list, and manage properties, catering to the growing needs of the local real estate market.
 
-- **[Deployed Site](https://sam-g-birhanu.github.io/cozyHomes_landingpage/)**
-- **[Final Project Blog Article](https://www.linkedin.com/posts/samrawit-g-09a7a2318_cozyhomes-was-born-from-a-vision-to-simplify-activity-7216906028355854336-AV7W?utm_source=share&utm_medium=member_desktop))**
+- **[Deployed Landing Page](https://sam-g-birhanu.github.io/cozyHomes_landingpage/)**
+- **[Final Project Blog Article](https://www.linkedin.com/posts/samrawit-g-09a7a2318_cozyhomes-was-born-from-a-vision-to-simplify-activity-7216906028355854336-AV7W?utm_source=share&utm_medium=member_desktop)**
 - **[Author's LinkedIn](https://www.linkedin.com/in/samrawit-g-09a7a2318/)**
 
 ## Installation
