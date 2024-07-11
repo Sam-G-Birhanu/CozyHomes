@@ -13,53 +13,7 @@ import SearchResults from './Screens/SearchResults';
 const Stack = createStackNavigator();
 
 
-// const propertyData = [
-//   {
-//     id: '1',
-//     image: 'https://www.mebamarketing.com/wp-content/uploads/2016/03/photo_9_2023-07-23_12-18-21-758x564.jpg',
-//     price: '1 ETB',
-//     address: 'Mexico',
-//     squareMeters: '150',
-//     beds: '3',
-//     baths: '2',
-//     parking: '1',
-//     type: 'Villa'
-//   },
-//   {
-//     id: '2',
-//     image: 'https://www.mebamarketing.com/wp-content/uploads/2023/10/photo_2023-10-04_18-18-14.jpg',
-//     price: '1 ETB',
-//     address: 'Megenagna',
-//     squareMeters: '200',
-//     beds: '4',
-//     baths: '3',
-//     parking: '2',
-//     type: 'Villa'
-//   },
-//   {
-//     id: '3',
-//     image: 'https://www.mebamarketing.com/wp-content/uploads/2023/10/photo_2023-09-26_15-01-16-758x564.jpg',
-//     price: '1 ETB',
-//     address: 'Bole',
-//     squareMeters: '100',
-//     beds: '2',
-//     baths: '1',
-//     parking: '0',
-//     type: 'Apartment'
-//   },
-//   {
-//     id: '4',
-//     image: 'https://www.mebamarketing.com/wp-content/uploads/2016/03/photo_9_2023-07-23_12-18-21-758x564.jpg',
-//     price: '1 ETB',
-//     address: 'Lideta',
-//     squareMeters: '100',
-//     beds: '2',
-//     baths: '1',
-//     parking: '0',
-//     type: 'Apartment'
-//   }
-// ];
-
+// here there used to be a fake property list.
 const PropertyList = ({navigation, PropertyType, searchText}) => {
   console.log('Navigation Prop:', navigation);
   console.log('PropertyType Prop:', PropertyType);
@@ -77,21 +31,24 @@ useEffect(() => {
 
     fetchData();
   }, []);
+
+  console.log(propertyData);
   const renderItem = ({ item }) => (
     
     <TouchableOpacity style={styles.card}
-          onPress={() => navigation.navigate('PropertyDetail', { itemId: item.id, itemAddress: item.address, itemPrice: item.price, itemArea: item.squareMeters, itemBeds: item.beds, i11temBath: item.baths, itemParking: item.parking, itemImage:item.image})} 
+          onPress={() => navigation.navigate('PropertyDetail', { itemId: item.prp_id,  itemPrice: item.price, itemArea: item.area, itemBeds: item.bedrooms, itemBath: item.bathrooms, itemImage:item.image, itemDescription:item.description,itemLatitude: item.latitude, itemLongitude: item.longitude})} 
  >
  
       <Image source={{ uri: "https://www.mebamarketing.com/wp-content/uploads/2016/03/photo_9_2023-07-23_12-18-21-758x564.jpg" }} style={styles.image} />
       <View style={styles.cardBody}>
         <Text style={styles.price}>{item.price}</Text>
-        <Text style={styles.address}>{item.address}</Text>
+        <Text style={styles.price}>{item.prp_title}</Text>
+        <Text style={styles.address}>{item.street}, {item.city}, {item.region}</Text>
         <Text style={styles.squareMeters}>{item.area} sq. m.</Text>
       </View>
       <View style={styles.cardFooter}>
-        <Text style={styles.beds}>{item.beds} beds</Text>
-        <Text style={styles.baths}>{item.baths} baths</Text>
+        <Text style={styles.beds}>{item.bedrooms} beds</Text>
+        <Text style={styles.baths}>{item.bathrooms} baths</Text>
         {/* <Text style={styles.parking}>{item.parking} parking</Text> */}
         {/* <Text style={styles.parking}>{item.parking} parking</Text> */}
       </View>
@@ -102,7 +59,7 @@ useEffect(() => {
   const filteredData = propertyData.filter((item) => {
   if (searchText) {
     console.log("i'm in if state");
-    return item.address.toLowerCase().includes(searchText.toLowerCase());
+    return item.city.toLowerCase().includes(searchText.toLowerCase());
   } else {
     console.log("i'm in else state");
     return (!PropertyType || item.type.toLowerCase() === PropertyType.toLowerCase());

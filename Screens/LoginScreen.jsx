@@ -1,82 +1,114 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert,Image } from 'react-native';
-import axios from 'axios';
-import * as ImagePicker from 'expo-image-picker';
-
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 
 const LoginScreen = () => {
-     const [id, setId] = useState('');
-  const [name, setName] = useState('');
-    const [image, setImage] = useState(null);
-
-     const handleImagePicker = async () => {
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-    if (permissionResult.granted === false) {
-      alert('Permission to access camera roll is required!');
-      return;
-    }
-     const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (!pickerResult.canceled) {
-      setImage(pickerResult.assets[0].uri);
-    }
-  };
-
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post('https://node-trial2.mebamarketing.com/submit', {
-        id,
-        name,
-        image
-      });
-      Alert.alert('Success', 'Data sent successfully!');
-    } catch (error) {
-      Alert.alert('Error', 'Failed to send data');
-      console.error(error);
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>ID:</Text>
-      <TextInput
-        style={styles.input}
-        value={id}
-        onChangeText={setId}
-        placeholder="Enter ID"
-      />
-      <Text style={styles.label}>Name:</Text>
-      <TextInput
-        style={styles.input}
-        value={name}
-        onChangeText={setName}
-        placeholder="Enter Name"
-      />
-      <Button title="Pick an Image" onPress={handleImagePicker} />
-      {image && (
-        <Image source={{ uri: image }} style={styles.image} />
-      )}
-      <Button title="Submit" onPress={handleSubmit} />
+      <ImageBackground
+        source={{uri:'https://www.bootdey.com/image/580x580/20B2AA/20B2AA'}}
+        style={styles.header}>
+        <Text style={styles.heading}>My Awesome App</Text>
+      </ImageBackground>
+      <View style={styles.card}>
+        <TextInput style={styles.input} placeholder="Email" />
+        <TextInput style={styles.input} placeholder="Password" secureTextEntry={true} />
+
+        <TouchableOpacity style={styles.forgotPasswordButton}>
+          <Text style={styles.forgotPasswordButtonText}>Forgot?</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.createAccountButton}>
+          <Text style={styles.createAccountButtonText}>Create Account</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
     justifyContent: 'center',
-    padding: 16,
   },
-  label: {
-    fontSize: 18,
-    marginBottom: 8,
+  header: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 50,
+    paddingBottom: 20,
+    width: '100%',
+    height: 200,
+  },
+  heading: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
+  },
+  forgotPasswordButton: {
+    width:'100%',
+    textAlign:'flex-end',
+  },
+  forgotPasswordButtonText: {
+    color: '#20B2AA',
+    fontSize: 12,
+    fontWeight: 'bold',
+    textAlign:'right'
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
+    padding: 20,
+    marginTop: 40,
+    width: '90%',
+    alignItems: 'center',
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginVertical: 10,
+    width: '100%',
+  },
+  button: {
+    backgroundColor: '#20B2AA',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
+    width: '100%',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  createAccountButton: {
+    marginTop: 20,
+  },
+  createAccountButtonText: {
+    color: '#20B2AA',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import TabsComponent from '../Components/TabsComponent';
 // import HeaderFilterButtons from '../Components/HeaderFilterButtons';
 // import { ApplicationProvider } from '@ui-kitten/components';

@@ -6,12 +6,10 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
-import MapView, { Marker } from 'react-native-maps';
-
 
 import theme from '../theme/theme.json' 
 
-const Add_new_property = () => {
+const Add_new_property_2 = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [propertyTitle, setPropertyTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -28,7 +26,6 @@ const Add_new_property = () => {
   const [lift, setLift] = useState(false);
   const [gym, setGym] = useState(false);
   const [generator, setGenerator] = useState(false);
-  const [selectedCoordinate, setSelectedCoordinate] = useState(null);
 
 
   // const [category, setCategory] = useState('apartment');
@@ -79,27 +76,11 @@ const handleRemoveImage = (index) => {
     setCurrentPage(currentPage - 1);
   };
 
- const handleMapPress = (event) => {
-    const { coordinate } = event.nativeEvent;
-    setSelectedCoordinate(coordinate);
-  };
-
-  const handleMarkerPress = (coordinate) => {
-    setSelectedCoordinate(coordinate);
-  };
-
-  
-
 const uploadImages = async () => {
      if (selectedImages.length === 0) {
       alert('Please select images to upload.');
       return;
     }
-    if (!selectedCoordinate) {
-      Alert.alert('Error', 'Please select a location on the map.');
-      return;
-    }
-
     const formData = new FormData();
     for (let i = 0; i < selectedImages.length; i++) {
       // console.log(selectedImages[i].uri);
@@ -130,9 +111,7 @@ const uploadImages = async () => {
   formData.append('laundry', laundry);
   formData.append('lift', lift);
   formData.append('gym', gym); 
-  formData.append('generator', generator);
-  formData.append('latitude', selectedCoordinate.latitude);
-  formData.append('longitude', selectedCoordinate.longitude);
+  formData.append('generator', generator);   
     }
     try {
       console.log("formData");
@@ -382,27 +361,6 @@ const uploadImages = async () => {
               </View>
             ))}
           </View>
-          <Text style={styles.label}>Select Location</Text>
-
-          <MapView
-        style={styles.map}
-        onPress={handleMapPress}
-        initialRegion={{
-          latitude: 9.03, // Addis Ababa latitude
-          longitude: 38.74, // Addis Ababa longitude
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05
-          
-        }}
-      >
-        {selectedCoordinate && (
-          <Marker
-            coordinate={selectedCoordinate}
-            title="Selected Location"
-            onPress={() => handleMarkerPress(selectedCoordinate)}
-          />
-        )}
-      </MapView>
             
 
           
@@ -511,15 +469,6 @@ const styles = StyleSheet.create({
   picker: {
     flex: 1,
   },
-  map_container: {
-    flex: 1,
-    padding: 20,
-  },
-  map: {
-    width: '100%',
-    height: 200,
-    marginBottom: 10,
-  },
 });
 
-export default Add_new_property;
+export default Add_new_property_2;

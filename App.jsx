@@ -1,27 +1,28 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import PropertyList from './PropertyListing';
-import ApartmentsScreen from './Screens/ApartmentsScreen';
 import ForRentScreen from './Screens/ForRentScreen';
 import ForSaleScreen from './Screens/ForSaleScreen';
-import FilterButtons from './Components/FilterButtons';
 import PropertyDetail from './Screens/PropertyDetailScreen';
-import PropertyType from './Components/PropertyTypes';
-import LogoComponent from './Components/LogoComponent';
-import SearchBar from './Components/SearchBar';
-import SearchResults from './Screens/SearchResults';
-import DiscoverProperties from './Screens/DiscoverProperties';
 import HomeScreen from './Screens/HomeScreen';
-import Profile from './Screens/Profile';
 import LoginScreen from './Screens/LoginScreen';
 import SellScreen from './Screens/SellScreen';
+import Add_new_property_2 from './Screens/Add_new_property_2';
 import Add_new_property from './Screens/Add_new_property';
+import SignUpComponent from './Components/SignupComponent';
+import EnterOtpScreen from './Screens/EnterOtpScreen';
+
+import LogoComponent from './Components/LogoComponent';
+import SearchBar from './Components/SearchBar';
+import MainScreen from './Screens/MainScreen';
+
+import { PropertyProvider } from './Contexts/PropertyListContext';
+import SignupComponent from './Components/SignupComponent';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -38,8 +39,23 @@ const CustomDrawerContent = (props) => {
   );
 };
 
+const StackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="PropertyList" component={PropertyList} />
+    <Stack.Screen name="PropertyDetail" component={PropertyDetail} />
+    <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="sign up" component={SignupComponent} />
+    <Stack.Screen name="EnterOtpScreen" component={EnterOtpScreen} />
+    <Stack.Screen name="search" component={SearchBar} />
+    
+
+  </Stack.Navigator>
+);
+
 const App = () => {
   return (
+    <PropertyProvider>
     <NavigationContainer>
       <Drawer.Navigator
         drawerContent={props => <CustomDrawerContent {...props} />}
@@ -55,20 +71,25 @@ const App = () => {
       >
         <Drawer.Screen
           name="Home"
-          component={HomeScreen}
+          component={StackNavigator}
+          headerShown= "true"
           options={{
             headerTitle: () => <LogoComponent />,
-          }}
+          }} 
         />
-        {/* <Drawer.Screen name="Apartments" component={ApartmentsScreen} /> */}
+
         <Drawer.Screen name="ForRent" component={ForRentScreen} />
-        <Drawer.Screen name="ForSale" component={ForSaleScreen} />
-        <Drawer.Screen name="Sell Property" component={SellScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Add New Property" component={Add_new_property} />
-        {/* <Stack.Screen name="Search Results" component={SearchResults} /> */}
+        <Drawer.Screen name="Login" component={LoginScreen} />
+        <Drawer.Screen name="enter otp" component={EnterOtpScreen} />
+        <Drawer.Screen name="signup" component={SignUpComponent} />
+        <Drawer.Screen name="For Sale" component={ForSaleScreen} />
+        {/* <Drawer.Screen name="Sell Property" component={SellScreen} /> */}
+        <Drawer.Screen name="Add New Property" component={Add_new_property} />
+        <Drawer.Screen name="Add New Property 2" component={Add_new_property_2} />
+        {/* <Drawer.Screen name="Property Stack" component={StackNavigator} options={{ headerShown: false }} /> */}
       </Drawer.Navigator>
     </NavigationContainer>
+    </PropertyProvider>
   );
 };
 
@@ -77,7 +98,6 @@ const styles = StyleSheet.create({
     padding: 25,
     margin: 10,
     alignItems: 'center',
-    // backgroundColor: 'grey',
     borderBottomWidth: 2,
     borderBottomColor: '#ccc',
   },
