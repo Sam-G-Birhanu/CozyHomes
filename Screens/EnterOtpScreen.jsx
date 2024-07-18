@@ -1,15 +1,38 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const EnterOtpScreen = ({ route }) => {
   const { name, email, password, onSubmit } = route.params; // Destructure params from route
-
+  const navigation = useNavigation();
   const [code, setCode] = useState('');
-
-  const handleOtpSubmit = () => {
-    onSubmit(code); // Pass OTP code to onSubmit function from props
+  const userData_Otp = {
+      name: name,
+      email: email,
+      password: password,
+      otp: code,
+    };
+  const handleOtpSubmit = async () => {
+   // onSubmit(code); // Pass OTP code to onSubmit function from props
+    const response = await fetch('https://node-trial2.mebamarketing.com/authenticate_otp',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData_Otp)
+      }
+    ).then(response => response.json())
+    .then(data => {
+      console.log('Registration successful:', data);
+      // Navigate to EnterOtpScreen or handle the response as needed
+      navigation.navigate('LoginScreen');
+    })
+    .catch(error => {
+      console.error('Error registering user:', error);
+      // Handle errors, e.g., display an error message to the user
+    });
     console.log("i'm in bros");
-    
   };
 
   return (

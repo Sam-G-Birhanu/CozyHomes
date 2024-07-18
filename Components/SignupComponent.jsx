@@ -9,15 +9,36 @@ const SignUpComponent = () => {
 
   const navigation = useNavigation();
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     // Navigate to EnterOtpScreen and pass parameters
-    
-    navigation.navigate('EnterOtpScreen', {
+    const userData = {
+      name: name,
+      email: email,
+      password: password
+    };
+    const response = await fetch('https://node-trial2.mebamarketing.com/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Registration successful:', data);
+      // Navigate to EnterOtpScreen or handle the response as needed
+      navigation.navigate('EnterOtpScreen', {
       name: name,
       email: email,
       password: password,
       onSubmit: handleSubmitOtp
     });
+    })
+    .catch(error => {
+      console.error('Error registering user:', error);
+      // Handle errors, e.g., display an error message to the user
+    });
+    
     console.log(name, email, password);
   };
 const handleSubmitOtp = (otp) => {

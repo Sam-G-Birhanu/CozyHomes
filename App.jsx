@@ -24,6 +24,9 @@ import MainScreen from './Screens/MainScreen';
 import { PropertyProvider } from './Contexts/PropertyListContext';
 import SignupComponent from './Components/SignupComponent';
 
+import { LoggedInContextProvider } from './Contexts/LoggedInContext';
+import { FavoritePropertyProvider } from './Contexts/FavoritePropertyContext';
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -44,8 +47,8 @@ const StackNavigator = () => (
     <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
     <Stack.Screen name="PropertyList" component={PropertyList} />
     <Stack.Screen name="PropertyDetail" component={PropertyDetail} />
-    <Stack.Screen name="Login" component={LoginScreen} />
-    <Stack.Screen name="sign up" component={SignupComponent} />
+    <Stack.Screen name="LoginScreen" component={LoginScreen} />
+    <Stack.Screen name="SignupComponent" component={SignupComponent} />
     <Stack.Screen name="EnterOtpScreen" component={EnterOtpScreen} />
     <Stack.Screen name="search" component={SearchBar} />
     
@@ -55,7 +58,9 @@ const StackNavigator = () => (
 
 const App = () => {
   return (
+    <LoggedInContextProvider>
     <PropertyProvider>
+      <FavoritePropertyProvider>
     <NavigationContainer>
       <Drawer.Navigator
         drawerContent={props => <CustomDrawerContent {...props} />}
@@ -72,24 +77,25 @@ const App = () => {
         <Drawer.Screen
           name="Home"
           component={StackNavigator}
-          headerShown= "true"
-          options={{
-            headerTitle: () => <LogoComponent />,
-          }} 
+          headerShown= "false"
+          
         />
 
-        <Drawer.Screen name="ForRent" component={ForRentScreen} />
+        {/* <Drawer.Screen name="ForRent" component={ForRentScreen} /> */}
         <Drawer.Screen name="Login" component={LoginScreen} />
-        <Drawer.Screen name="enter otp" component={EnterOtpScreen} />
+        {/* <Drawer.Screen name="enter otp" component={EnterOtpScreen} /> */}
         <Drawer.Screen name="signup" component={SignUpComponent} />
-        <Drawer.Screen name="For Sale" component={ForSaleScreen} />
+        {/* <Drawer.Screen name="For Sale" component={ForSaleScreen} /> */}
         {/* <Drawer.Screen name="Sell Property" component={SellScreen} /> */}
-        <Drawer.Screen name="Add New Property" component={Add_new_property} />
-        <Drawer.Screen name="Add New Property 2" component={Add_new_property_2} />
+        {/* <Drawer.Screen name="Add New Property" component={Add_new_property} /> */}
+        <Drawer.Screen name="Add New Property" component={Add_new_property_2} />
         {/* <Drawer.Screen name="Property Stack" component={StackNavigator} options={{ headerShown: false }} /> */}
       </Drawer.Navigator>
     </NavigationContainer>
+    </FavoritePropertyProvider>
     </PropertyProvider>
+    </LoggedInContextProvider>
+
   );
 };
 
